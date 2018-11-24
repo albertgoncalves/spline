@@ -15,8 +15,8 @@ with pkgs; mkShell {
                     tmux
                   ];
     shellHook = ''
-        pylin()    { pylint -s n $1; }
-        strcd()    { cd "$(dirname $1)"; }
+        pylin() { pylint -s n $1; }
+        strcd() { cd "$(dirname $1)"; }
         withfzf() {
             local h
             h=$(fzf)
