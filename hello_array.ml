@@ -13,6 +13,7 @@ let mat =
 
 let main =
     Printf.printf "%d\n" @@ Array.length arr;
-    Array.iter (fun x -> print_int @@ Array.length x) mat; print_newline ()
+    Array.iter (fun x -> print_int @@ Array.length x) mat;
+    print_newline ()
 
 let () = main
