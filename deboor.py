@@ -37,16 +37,16 @@ def bspline(cv, n=100, d=3, closed=False):
     knots = None
     u     = None
     if not closed:
-        u = np.arange(0, n, dtype='float') / (n - 1) * (count - d)
+        u = np.arange(0, n, dtype="float") / (n - 1) * (count - d)
         knots = np.array( [0] * d
                         + list(range(count - d + 1))
-                        + [count - d] * d, dtype='int'
+                        + [count - d] * d, dtype="int"
                         )
     else:
-        u = ( (np.arange(0, n, dtype='float') / (n - 1) * count)
+        u = ( (np.arange(0, n, dtype="float") / (n - 1) * count)
             - (0.5 * (d - 1))
             ) % count  # keep u=0 relative to 1st cv
-        knots = np.arange(0 - d, count + (d * 2) - 1, dtype='int')
+        knots = np.arange(0 - d, count + (d * 2) - 1, dtype="int")
 
     # Sample the curve at each u value
     samples = np.zeros((n, 3))
@@ -57,7 +57,6 @@ def bspline(cv, n=100, d=3, closed=False):
             else:
                 for k in range(count):
                     samples[i] += coxDeBoor(knots, u[i], k, d) * cv[k]
-
         else:
             for k in range(count + d):
                 samples[i] += coxDeBoor(knots, u[i], k, d) * cv[k % count]
@@ -80,13 +79,13 @@ if __name__ == "__main__":
         x, y, _ = p.T
         cv      = cv.T
 
-        plt.plot(cv[0], cv[1], 'o-', label='Control Points')
-        plt.plot(x, y, 'k-', label='Curve')
-        plt.xlabel('x')
-        plt.ylabel('y')
+        plt.plot(cv[0], cv[1], "o-", label="Control Points")
+        plt.plot(x, y, "k-", label="Curve")
+        plt.xlabel("x")
+        plt.ylabel("y")
 
         plt.legend()
-        plt.gca().set_aspect('equal', adjustable='box')
+        plt.gca().set_aspect("equal", adjustable="box")
         plt.tight_layout()
         plt.show()
 
