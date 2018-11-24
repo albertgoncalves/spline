@@ -3,7 +3,6 @@
 
 # via https://stackoverflow.com/questions/34803197/fast-b-spline-algorithm-with-numpy-scipy
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 # Simple Cox-DeBoor recursion
@@ -66,14 +65,16 @@ def bspline(cv, n=100, d=3, closed=False):
     return samples
 
 if __name__ == "__main__":
+    import matplotlib.pyplot as plt
+
     def test(closed):
-        cv = np.array([ [ 50.0, 25.0, -0.0]
-                      , [ 59.0, 12.0, -0.0]
-                      , [ 50.0, 10.0,  0.0]
-                      , [ 57.0,  2.0, -9.0]
-                      , [ 40.0,  4.0,  0.0]
-                      , [ 40.0, 14.0, -0.0]
-                      ])
+        cv = np.asarray([ [ 50.0, 25.0,  0.0]
+                        , [ 59.0, 12.0, -1.0]
+                        , [ 50.0, 10.0,  1.0]
+                        , [ 57.0,  2.0,  2.0]
+                        , [ 40.0,  4.0, -1.0]
+                        , [ 40.0, 14.0,  0.0]
+                        ])
 
         p       = bspline(cv, n=100, d=3, closed=closed)
         x, y, _ = p.T

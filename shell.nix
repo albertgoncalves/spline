@@ -6,10 +6,15 @@ with pkgs; mkShell {
                     python36Packages.numpy
                     python36Packages.pylint
                     fzf
+                    ocaml-ng.ocamlPackages_4_07.ocaml
+                    ocaml-ng.ocamlPackages_4_07.cairo2
+                    ocaml-ng.ocamlPackages_4_07.findlib
+                    ocaml-ng.ocamlPackages_4_07.ocp-indent
+                    ocaml-ng.ocamlPackages_4_07.utop
+                    rlwrap
                     tmux
                   ];
     shellHook = ''
-        copyfile() { cat $1 | pbcopy; }
         pylin()    { pylint -s n $1; }
         strcd()    { cd "$(dirname $1)"; }
         withfzf() {
@@ -19,12 +24,10 @@ with pkgs; mkShell {
                 $1 "$h"
             fi
         }
-        alias cpyfzf="withfzf copyfile"
         alias  cdfzf="withfzf strcd"
         alias pylfzf="withfzf pylin"
         alias runfzf="withfzf python3"
         alias vimfzf="withfzf vim"
-        export -f copyfile
         export -f pylin
         export -f withfzf
     '';
