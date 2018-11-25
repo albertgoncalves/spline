@@ -23,6 +23,6 @@ let print_strlist l =
 
 let main =
     List.iter (fun x -> print_strlist @@ List.map string_of_float x)
-        [frange 0.0 10.0 0.5; randf 10 1.0 10];
+        [frange 0.0 10.0 0.5; randf 10 1.0 10]
 
 let () = main
