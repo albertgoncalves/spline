@@ -18,13 +18,11 @@ let randf seed bound n =
         | n -> loop (rand () :: acc) (n - 1) in
     loop [] n
 
-let strlist_to_string l =
-    Printf.sprintf "[%s]\n" @@ String.concat "; " l
-
-let print_float_list l =
-    print_string @@ strlist_to_string @@ List.map string_of_float l
+let print_strlist l =
+    print_string @@ Printf.sprintf "[%s]\n" @@ String.concat "; " l
 
 let main =
-    List.iter print_float_list [frange 0.0 10.0 0.5; randf 10 1.0 10]
+    List.iter (fun x -> print_strlist @@ List.map string_of_float x)
+        [frange 0.0 10.0 0.5; randf 10 1.0 10];
 
 let () = main
