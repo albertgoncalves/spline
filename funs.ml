@@ -1,12 +1,12 @@
 let frange a b incr =
-    let check, incr =
+    let compare, incr =
         if b > a then
             (<=), incr *. (-1.0)
         else
             (>=), incr in
     let rec loop n l =
         let x = b +. (n *. incr) in
-        if check x a then (x :: l)
+        if compare x a then (x :: l)
         else loop (n +. 1.0) (x :: l) in
     loop 1.0 []
 
