@@ -1,16 +1,16 @@
 { pkgs ? import <nixpkgs> {} }:
 with pkgs; mkShell {
     name = "python";
-    buildInputs = [ python36
-                    python36Packages.matplotlib
-                    python36Packages.numpy
-                    python36Packages.pylint
-                    fzf
-                    ocaml-ng.ocamlPackages_4_07.ocaml
+    buildInputs = [ ocaml-ng.ocamlPackages_4_07.ocaml
                     ocaml-ng.ocamlPackages_4_07.cairo2
                     ocaml-ng.ocamlPackages_4_07.findlib
                     ocaml-ng.ocamlPackages_4_07.ocp-indent
                     ocaml-ng.ocamlPackages_4_07.utop
+                    python36
+                    python36Packages.matplotlib
+                    python36Packages.numpy
+                    python36Packages.pylint
+                    fzf
                     rlwrap
                     tmux
                   ];
@@ -25,8 +25,6 @@ with pkgs; mkShell {
             fi
         }
         alias  cdfzf="withfzf strcd"
-        alias pylfzf="withfzf pylin"
-        alias runfzf="withfzf python3"
         alias vimfzf="withfzf vim"
         export -f pylin
         export -f withfzf
