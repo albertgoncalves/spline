@@ -10,9 +10,15 @@ let frange a b incr =
         else loop (n +. 1.0) (x :: l) in
     loop 1.0 []
 
-let randf seed bound n =
+let sort a b =
+    if b >= a then (a, b)
+    else (b, a)
+
+let randf seed min max n =
     Random.init seed;
-    let rand = (fun _ -> Random.float bound) in
+    let (a, b) = sort min max in
+    let diff = b -. a in
+    let rand = (fun _ -> a +. Random.float diff) in
     let rec loop acc = function
         | 0 -> acc
         | n -> loop (rand () :: acc) (n - 1) in
@@ -21,8 +27,6 @@ let randf seed bound n =
 let print_strlist l =
     print_string @@ Printf.sprintf "[%s]\n" @@ String.concat "; " l
 
-let main =
+let main () =
     List.iter (fun x -> print_strlist @@ List.map string_of_float x)
-        [frange 0.0 10.0 0.5; randf 10 1.0 10]
-
-let () = main
+        [frange 0.0 10.0 0.5; randf 10 0.0 1.0 10]
