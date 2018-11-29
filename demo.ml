@@ -1,11 +1,13 @@
 let bound = 1000
 let surface = Cairo.Image.create Cairo.Image.ARGB32 bound bound
-let save filename = Cairo.PNG.write surface filename
 
 let cr =
     let cr = Cairo.create surface in
     Cairo.set_source_rgb cr 0.0 0.0 0.0;
     cr
+
+let antialias = Cairo.set_antialias cr Cairo.ANTIALIAS_SUBPIXEL
+let save filename = Cairo.PNG.write surface filename
 
 let extract f = function
     | [x; y; _] ->
@@ -35,6 +37,7 @@ let main () =
     lines Tmp.y 3.5;
     lines Tmp.x 1.0;
     dots Tmp.x 1.5;
+    antialias;
     save "demo.png"
 
 let () = main ()
