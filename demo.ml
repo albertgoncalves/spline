@@ -1,26 +1,22 @@
-let bound = 500
-
+let bound = 1000
 let surface = Cairo.Image.create Cairo.Image.ARGB32 bound bound
+let save filename = Cairo.PNG.write surface filename
 
 let cr =
     let cr = Cairo.create surface in
     Cairo.set_source_rgb cr 0.0 0.0 0.0;
     cr
 
-let save surface filename =
-    Cairo.PNG.write surface filename
-
 let extract f = function
     | [x; y; _] ->
         let bound = float_of_int bound in
-        let x = ((x *. x) /. 5.0) -. (bound /. 2.0) in
-        let y = bound -. (y *. 18.0) in
+        let x = ((x *. x) /. 2.5) -. (bound /. 2.0) in
+        let y = bound -. (y *. 35.0) in
         f x y
     | _ -> ()
 
 let lines pts lw =
-    let line x y =
-        Cairo.line_to cr x y in
+    let line x y = Cairo.line_to cr x y in
 
     Cairo.set_line_width cr lw;
     List.iter (fun pt -> extract line pt) pts;
@@ -39,6 +35,6 @@ let main () =
     lines Tmp.y 3.5;
     lines Tmp.x 1.0;
     dots Tmp.x 1.5;
-    save surface "demo.png"
+    save "demo.png"
 
 let () = main ()
