@@ -12,9 +12,9 @@ let save surface filename =
 
 let extract f = function
     | [x; y; _] ->
-        let scale = float_of_int bound in
-        let x = ((x *. x) /. 5.0) -. (scale /. 2.0) in
-        let y = scale -. (y *. 18.0) in
+        let bound = float_of_int bound in
+        let x = ((x *. x) /. 5.0) -. (bound /. 2.0) in
+        let y = bound -. (y *. 18.0) in
         f x y
     | _ -> ()
 
