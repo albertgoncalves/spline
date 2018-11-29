@@ -18,26 +18,27 @@ let extract f = function
         f x y
     | _ -> ()
 
-let lines =
+let lines pts lw =
     let line x y =
         Cairo.line_to cr x y in
 
-    Cairo.set_line_width cr 3.5;
-    List.iter (fun l -> extract line l) Tmp.y;
+    Cairo.set_line_width cr lw;
+    List.iter (fun pt -> extract line pt) pts;
     Cairo.stroke cr
 
-let dots =
+let dots pts lw =
+    let pi = 4.0 *. atan 1.0 in
     let dot x y =
-        let pi = 4.0 *. atan 1.0 in
         Cairo.arc cr x y 15.0 0.0 (2.0 *. pi);
         Cairo.stroke cr in
 
-    Cairo.set_line_width cr 1.5;
-    List.iter (fun l -> extract dot l) Tmp.x
+    Cairo.set_line_width cr lw;
+    List.iter (fun pt -> extract dot pt) pts
 
 let main () =
-    lines;
-    dots;
+    lines Tmp.y 3.5;
+    lines Tmp.x 1.0;
+    dots Tmp.x 1.5;
     save surface "demo.png"
 
 let () = main ()
