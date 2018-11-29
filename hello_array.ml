@@ -14,9 +14,9 @@ let mat =
     mat.(x).(y) <- 9;
     mat
 
-let main =
+let main () =
     Printf.printf "%d\n" @@ Array.length arr;
     Array.iter (fun x -> print_int @@ Array.length x) mat;
     print_newline ()
 
-let () = main
+let () = main ()
