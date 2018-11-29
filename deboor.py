@@ -74,10 +74,14 @@ if __name__ == "__main__":
                         , [ 40.0,  4.0, -1.0]
                         , [ 40.0, 14.0,  0.0]
                         ])
+        print(cv)
 
         p       = bspline(cv, n=100, d=3, closed=closed)
         x, y, _ = p.T
         cv      = cv.T
+
+        np.set_printoptions(suppress=True)
+        print(p)
 
         plt.plot(cv[0], cv[1], "o-", label="Control Points")
         plt.plot(x, y, "k-", label="Curve")

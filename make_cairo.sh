@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-ocamlfind ocamlopt -package cairo2 funs.ml -linkpkg $1.ml -o $1
-./$1
-open $1.png
+ocamlc -c funs.ml
+ocamlc -c tmp.ml
+ocamlfind ocamlopt -package cairo2 tmp.ml funs.ml -linkpkg demo.ml -o demo
+./demo
+open demo.png
