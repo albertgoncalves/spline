@@ -64,25 +64,28 @@ let grow min max =
     let rec loop acc ls = match ls with
         | (a :: b :: c :: d :: l) ->
             if intersect (a, b) (c, d) then acc
-            else loop acc (b :: c :: d :: l)
+            else loop acc (a :: b :: d :: l)
         | l ->
             let pt = rand_pt min max in
-            loop (pt :: acc) (pt :: l) in
+            loop (pt :: acc) (pt :: acc) in
     loop [] []
 
-let lines cr pts =
+let draw_lines cr pts =
     let line xy =
         let x, y = xy in
         Cairo.line_to cr x y in
     List.iter line pts
 
 let main () =
-    let bound = 1000 in
+    Random.init 9;
+    let bound = 500 in
     let surface = Cairo.Image.create Cairo.Image.ARGB32 bound bound in
     let cr = Cairo.create surface in
     Cairo.set_source_rgb cr 0.0 0.0 0.0;
     Cairo.set_antialias cr Cairo.ANTIALIAS_SUBPIXEL;
-    Cairo.set_line_width cr 10.0;
-    lines cr @@ grow 0.0 1000.0;
+    Cairo.set_line_width cr 2.0;
+    draw_lines cr @@ grow 0.0 500.0;
     Cairo.stroke cr;
     Cairo.PNG.write surface "intersect.png"
+
+let () = main ()
