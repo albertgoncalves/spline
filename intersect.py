@@ -62,7 +62,7 @@ def line_vectors(ab):
     return ([ax, bx], [ay, by])
 
 def random_point():
-    return (np.random.random(), np.random.random())
+    return (round(np.random.random(), 2), round(np.random.random(), 2))
 
 def main():
     a = random_point()
