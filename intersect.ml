@@ -9,16 +9,18 @@ let round n x =
 
 let point_along pt l =
     let a, b = l in
-    let round x = round 10.0 x in
-    Float.equal
-        (round ((distance a pt) +. (distance b pt)))
-        (round (distance a b))
+    let dist j k = round 10.0 @@ distance j k in
+    let apt = dist a pt in
+    let bpt = dist b pt in
+    let ab = dist a b in
+    Float.equal (apt +. bpt) ab
 
 let ccw a b c =
     let ax, ay = a in
     let bx, by = b in
     let cx, cy = c in
-    ((cy -. ay) *. (bx -. ax)) > ((by -. ay) *. (cx -. ax))
+    let delta j k = (j -. ay) *. (k -. ax) in
+    (delta cy bx) > (delta by cx)
 
 let rec on_line pt = function
     | (ab :: l) ->
@@ -29,13 +31,58 @@ let rec on_line pt = function
 let check_endpoints ab cd =
     let a, b = ab in
     let c, d = cd in
-    if on_line a [cd] then true else
-    if on_line b [cd] then true else
-    if on_line c [ab] then true else
-    if on_line d [ab] then true else false
+    if on_line a [cd] then true
+    else if on_line b [cd] then true
+    else if on_line c [ab] then true
+    else if on_line d [ab] then true
+    else false
 
 let intersect ab cd =
     let a, b = ab in
     let c, d = cd in
-    if (((ccw a c d) <> (ccw b c d)) && ((ccw a b c) <> (ccw a b d))) then true
+    let acd = ccw a c d in
+    let bcd = ccw b c d in
+    let abc = ccw a b c in
+    let abd = ccw a b d in
+    if (acd <> bcd) && (abc <> abd) then true
     else check_endpoints ab cd
+
+let rand_pt min max =
+    let rand () = min +. Random.float (max -. min) in
+    rand (), rand ()
+
+let rand_pts n min max =
+    let n = abs n in
+    let rec loop l n = match n with
+        | 0 -> l
+        | _ ->
+            let pt = rand_pt min max in
+            loop (pt :: l) (n - 1) in
+    loop [] n
+
+let grow min max =
+    let rec loop acc ls = match ls with
+        | (a :: b :: c :: d :: l) ->
+            if intersect (a, b) (c, d) then acc
+            else loop acc (b :: c :: d :: l)
+        | l ->
+            let pt = rand_pt min max in
+            loop (pt :: acc) (pt :: l) in
+    loop [] []
+
+let lines cr pts =
+    let line xy =
+        let x, y = xy in
+        Cairo.line_to cr x y in
+    List.iter line pts
+
+let main () =
+    let bound = 1000 in
+    let surface = Cairo.Image.create Cairo.Image.ARGB32 bound bound in
+    let cr = Cairo.create surface in
+    Cairo.set_source_rgb cr 0.0 0.0 0.0;
+    Cairo.set_antialias cr Cairo.ANTIALIAS_SUBPIXEL;
+    Cairo.set_line_width cr 10.0;
+    lines cr @@ grow 0.0 1000.0;
+    Cairo.stroke cr;
+    Cairo.PNG.write surface "intersect.png"
