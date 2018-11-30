@@ -33,3 +33,9 @@ let check_endpoints ab cd =
     if on_line b [cd] then true else
     if on_line c [ab] then true else
     if on_line d [ab] then true else false
+
+let intersect ab cd =
+    let a, b = ab in
+    let c, d = cd in
+    if (((ccw a c d) <> (ccw b c d)) && ((ccw a b c) <> (ccw a b d))) then true
+    else check_endpoints ab cd

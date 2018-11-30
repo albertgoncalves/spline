@@ -46,10 +46,6 @@ def check_endpoints(ab, cd):
 def intersect(ab, cd):
     a, b = ab
     c, d = cd
-    ax, ay = a
-    bx, by = b
-    cx, cy = c
-    dx, dy = d
     if ((ccw(a, c, d) != ccw(b, c, d)) & (ccw(a, b, c) != ccw(a, b, d))):
         return True
     else:
