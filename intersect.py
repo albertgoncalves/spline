@@ -12,13 +12,13 @@ def distance(a, b):
     bx, by = b
     return np.sqrt(((bx - ax) ** 2) + ((by - ay) ** 2))
 
-def point_between(point, ab):
+def point_along(point, ab):
     a, b = ab
     return distance(a, point) + distance(b, point) == distance(a, b)
 
 def on_line(point, line):
     return reduce( lambda a, b: a | b
-                 , map( lambda ab: point_between(point, ab)
+                 , map( lambda ab: point_along(point, ab)
                       , zip(line[:-1], line[1:])
                       )
                  )
