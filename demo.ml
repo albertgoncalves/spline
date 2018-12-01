@@ -1,4 +1,4 @@
-let bound = 1000
+let bound = 500
 let surface = Cairo.Image.create Cairo.Image.ARGB32 bound bound
 
 let white_background cr bound =
@@ -19,8 +19,8 @@ let save filename = Cairo.PNG.write surface filename
 let extract f = function
     | [x; y; _] ->
         let bound = float_of_int bound in
-        let x = ((x *. x) /. 2.5) -. (bound /. 2.0) in
-        let y = bound -. (y *. 35.0) in
+        let x = ((x *. x) /. 5.0) -. (bound /. 2.0) in
+        let y = bound -. (y *. 18.0) in
         f x y
     | _ -> ()
 
