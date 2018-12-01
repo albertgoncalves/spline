@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> {} }:
 with pkgs; mkShell {
-    name = "python";
+    name = "spline";
     buildInputs = [ ocaml-ng.ocamlPackages_4_07.ocaml
                     ocaml-ng.ocamlPackages_4_07.cairo2
                     ocaml-ng.ocamlPackages_4_07.findlib
@@ -11,8 +11,8 @@ with pkgs; mkShell {
                     python36Packages.numpy
                     python36Packages.pylint
                     fzf
-                    rlwrap
                     tmux
+                    vim
                   ];
     shellHook = ''
         pylin() { pylint -s n $1; }
