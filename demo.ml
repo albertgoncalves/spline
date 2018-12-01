@@ -1,8 +1,15 @@
 let bound = 1000
 let surface = Cairo.Image.create Cairo.Image.ARGB32 bound bound
 
+let white_background cr bound =
+    let bound = float_of_int bound in
+    Cairo.set_source_rgb cr 1.0 1.0 1.0;
+    Cairo.rectangle cr ~x:0.0 ~y:0.0 ~h:bound ~w:bound;
+    Cairo.fill cr
+
 let cr =
     let cr = Cairo.create surface in
+    white_background cr bound;
     Cairo.set_source_rgb cr 0.0 0.0 0.0;
     cr
 
