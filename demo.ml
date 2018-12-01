@@ -14,7 +14,9 @@ let cr =
     cr
 
 let antialias = Cairo.set_antialias cr Cairo.ANTIALIAS_SUBPIXEL
-let save filename = Cairo.PNG.write surface filename
+let save filename =
+    Cairo.PNG.write surface filename;
+    Cairo.Surface.finish surface
 
 let extract f = function
     | [x; y; _] ->

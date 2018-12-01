@@ -86,6 +86,7 @@ let main () =
     Cairo.set_line_width cr 2.0;
     draw_lines cr @@ grow 0.0 500.0;
     Cairo.stroke cr;
-    Cairo.PNG.write surface "intersect.png"
+    Cairo.PNG.write surface "intersect.png";
+    Cairo.Surface.finish surface
 
 let () = main ()

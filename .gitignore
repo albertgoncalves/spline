@@ -11,6 +11,7 @@
 !README.md
 !tmp.ml
 !intersect.*
+!margin.*
 *.cmi
 *.cmx
 *.o
