@@ -12,13 +12,13 @@ def cox_deboor(knots, u, k, d):
         return 0
     else:
         a_den = knots[k + d] - knots[k]
-        if a_den > 0:
+        if a_den != 0:
             a = ((u - knots[k]) / a_den) * cox_deboor(knots, u, k, (d - 1))
         else:
             a = 0
 
         b_den = knots[k + d + 1] - knots[k + 1]
-        if b_den > 0:
+        if b_den != 0:
             b = ((knots[k + d + 1] - u) / b_den) * \
                 cox_deboor(knots, u, (k + 1), (d - 1))
         else:
