@@ -2,23 +2,21 @@ module A = Array
 module L = List
 module H = Helpers
 
-let safe_div denom eq = if denom <> 0.0 then eq else 0.0
-
 let rec cox_deboor knots u k d =
     if d == 0 then if knots.(k) <= u && u < knots.(k + 1) then 1.0 else 0.0
     else
         let a =
-            let denom = knots.(k + d) -. knots.(k) in
-            let eq =
-                ((u -. knots.(k)) /. denom)
-                *. (cox_deboor knots u k (d - 1)) in
-            safe_div denom eq in
+            let den = knots.(k) -. knots.(k + d) in
+            if den <> 0.0 then
+                let num = knots.(k) -. u in
+                (cox_deboor knots u k (d - 1)) *. (num /. den)
+            else 0.0 in
         let b =
-            let denom = knots.(k + d + 1) -. knots.(k + 1) in
-            let eq =
-                ((knots.(k + d + 1) -. u) /. denom)
-                *. (cox_deboor knots u (k + 1) (d - 1)) in
-            safe_div denom eq in
+            let den = knots.(k + d + 1) -. knots.(k + 1) in
+            if den <> 0.0 then
+                let num = knots.(k + d + 1) -. u in
+                (cox_deboor knots u (k + 1) (d - 1)) *. (num /. den)
+            else 0.0 in
         a +. b
 
 let bspline cvs n d =
