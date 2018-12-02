@@ -19,8 +19,8 @@ let () =
     let r = 0.0 and g = 0.0 and b = 0.0 in
     let spline = S.bspline pts 100 3 in
 
-    D.dots cr ~pts ~lw:0.0025 ~rad:0.05 ~r ~g ~b;
-    D.lines cr ~pts ~lw:0.0015 ~r ~g ~b;
+    D.dots cr ~pts ~lw:0.002 ~rad:0.05 ~r ~g ~b;
+    D.lines cr ~pts ~lw:0.001 ~r ~g ~b;
     D.lines cr ~pts:spline ~lw:0.005 ~r ~g ~b;
 
     D.export surface "spline.png"
