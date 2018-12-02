@@ -11,21 +11,20 @@ def cox_deboor(knots, u, k, d):
             return 1
         return 0
     else:
-        den1 = knots[k + d] - knots[k]
-        den2 = knots[k + d + 1] - knots[k + 1]
-
-        if den1 > 0:
-            eq1 = ((u - knots[k]) / den1) * cox_deboor(knots, u, k, (d - 1))
+        a_den = knots[k + d] - knots[k]
+        if a_den > 0:
+            a = ((u - knots[k]) / a_den) * cox_deboor(knots, u, k, (d - 1))
         else:
-            eq1 = 0
+            a = 0
 
-        if den2 > 0:
-            eq2 = ((knots[k + d + 1] - u) / den2) * \
+        b_den = knots[k + d + 1] - knots[k + 1]
+        if b_den > 0:
+            b = ((knots[k + d + 1] - u) / b_den) * \
                 cox_deboor(knots, u, (k + 1), (d - 1))
         else:
-            eq2 = 0
+            b = 0
 
-        return eq1 + eq2
+        return a + b
 
 def bspline(cv, n=100, d=3, closed=False):
     # cv = np.array of 3d control vertices
