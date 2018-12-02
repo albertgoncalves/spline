@@ -1,14 +1,6 @@
 module A = Array
 module L = List
-
-let rec last default = function
-    | [] -> default
-    | [x] -> x
-    | (_ :: xs) -> last default xs
-
-let rec zip_with f xs ys = match xs, ys with
-    | (x :: xs), (y :: ys) -> f x y :: zip_with f xs ys
-    | [], _ | _, [] -> []
+module H = Helpers
 
 let rec cox_deboor knots u k d =
     if d == 0 then if knots.(k) <= u && u < knots.(k + 1) then 1.0 else 0.0
@@ -32,16 +24,16 @@ let bspline cvs n d =
     let dim = L.length @@ L.hd cvs in
     let count = L.length cvs in
     let knots = A.concat [ A.make d 0.0
-                             ; A.init (count - d + 1) float_of_int
-                             ; A.make d @@ float_of_int @@ count - d
-                             ] in
+                         ; A.init (count - d + 1) float_of_int
+                         ; A.make d @@ float_of_int @@ count - d
+                         ] in
     let rec loop u k accu = function
         | [] -> accu
         | (cv :: cvs) ->
             let cox_deboor = cox_deboor knots u k d in
             let accu =
                 let iter = L.map (fun x -> cox_deboor *. x) cv in
-                zip_with (+.) accu iter in
+                H.zip_with (+.) accu iter in
             loop u (k + 1) accu cvs in
     let us =
         let f x =
@@ -50,7 +42,7 @@ let bspline cvs n d =
         L.init n f in
     let zeros = L.init dim (fun _ -> 0.0) in
     let thresh = float_of_int @@ count - d in
-    let sample u = if u = thresh then last [] cvs else loop u 0 zeros cvs in
+    let sample u = if u = thresh then H.last [] cvs else loop u 0 zeros cvs in
     L.map sample us
 
 let main () =

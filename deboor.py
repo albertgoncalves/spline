@@ -5,34 +5,33 @@
 
 import numpy as np
 
-# Simple Cox-DeBoor recursion
-def coxDeBoor(knots, u, k, d):
-    # Test for end conditions
+def cox_deboor(knots, u, k, d):
     if d == 0:
         if (knots[k] <= u) & (u < knots[k + 1]):
             return 1
         return 0
+    else:
+        den1 = knots[k + d] - knots[k]
+        den2 = knots[k + d + 1] - knots[k + 1]
 
-    Den1 = knots[k + d] - knots[k]
-    Den2 = knots[k + d + 1] - knots[k + 1]
-    Eq1  = 0
-    Eq2  = 0
+        if den1 > 0:
+            eq1 = ((u - knots[k]) / den1) * cox_deboor(knots, u, k, (d - 1))
+        else:
+            eq1 = 0
 
-    if Den1 > 0:
-        Eq1 = ((u - knots[k]) / Den1) * coxDeBoor(knots, u, k, (d - 1))
-    if Den2 > 0:
-        Eq2 = ( ((knots[k + d + 1] - u) / Den2)
-              * coxDeBoor(knots, u, (k + 1), (d - 1))
-              )
+        if den2 > 0:
+            eq2 = ((knots[k + d + 1] - u) / den2) * \
+                cox_deboor(knots, u, (k + 1), (d - 1))
+        else:
+            eq2 = 0
 
-    return Eq1 + Eq2
+        return eq1 + eq2
 
-# cv     = np.array of 3d control vertices
-# n      = number of samples (default: 100)
-# d      = curve degree (default: cubic)
-# closed = is the curve closed (periodic) or open? (default: open)
 def bspline(cv, n=100, d=3, closed=False):
-    # Create a range of u values
+    # cv = np.array of 3d control vertices
+    # n = number of samples (default: 100)
+    # d = curve degree (default: cubic)
+    # closed = is the curve closed (periodic) or open? (default: open)
     count = len(cv)
     if not closed:
         u = np.arange(0, n, dtype="float") / (n - 1) * (count - d)
@@ -43,10 +42,9 @@ def bspline(cv, n=100, d=3, closed=False):
     else:
         u = ( (np.arange(0, n, dtype="float") / (n - 1) * count)
             - (0.5 * (d - 1))
-            ) % count  # keep u=0 relative to 1st cv
+            ) % count
         knots = np.arange(0 - d, count + (d * 2) - 1, dtype="int")
 
-    # Sample the curve at each u value
     samples = np.zeros((n, 3))
     for i in range(n):
         if not closed:
@@ -54,10 +52,10 @@ def bspline(cv, n=100, d=3, closed=False):
                 samples[i] = np.array(cv[-1])
             else:
                 for k in range(count):
-                    samples[i] += coxDeBoor(knots, u[i], k, d) * cv[k]
+                    samples[i] += cox_deboor(knots, u[i], k, d) * cv[k]
         else:
             for k in range(count + d):
-                samples[i] += coxDeBoor(knots, u[i], k, d) * cv[k % count]
+                samples[i] += cox_deboor(knots, u[i], k, d) * cv[k % count]
 
     return samples
 
@@ -74,13 +72,10 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
     def test(closed):
-        cv      = init_cv()
-        p       = bspline(cv, n=100, d=3, closed=closed)
+        cv = init_cv()
+        p = bspline(cv, n=100, d=3, closed=closed)
         x, y, _ = p.T
-        cv      = cv.T
-
-        np.set_printoptions(suppress=True)
-        print(p)
+        cv = cv.T
 
         plt.plot(cv[0], cv[1], "o-", label="Control Points")
         plt.plot(x, y, "k-", label="Curve")
