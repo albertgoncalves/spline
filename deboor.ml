@@ -9,8 +9,8 @@ let rec zip_with f xs ys = match (xs, ys) with
 
 let rec cox_deboor knots u k d =
     if d == 0 then
-        if (float_of_int knots.(k) <= u) && (u < float_of_int knots.(k + 1))
-            then 1.0
+        if (float_of_int knots.(k) <= u) &&
+           (u < float_of_int knots.(k + 1)) then 1.0
         else 0.0
     else
         let den1 = float_of_int @@ knots.(k + d) - knots.(k) in
@@ -30,11 +30,11 @@ let rec cox_deboor knots u k d =
 let bspline cv n d =
     let dim = List.length @@ List.hd cv in
     let count = List.length cv in
-    let u =
-        List.map
-            (fun x -> (x /. ((float_of_int n) -. 1.0)) *.
-            ((float_of_int count) -. (float_of_int d)))
-        @@ List.init n float_of_int in
+    let ul =
+        let f x =
+            (x /. (float_of_int n -. 1.0)) *.
+            (float_of_int count -. float_of_int d) in
+        List.map f @@ List.init n float_of_int in
     let knots =
         Array.concat [ Array.make d 0
                      ; Array.init (count - d + 1) (fun x -> x)
@@ -47,13 +47,12 @@ let bspline cv n d =
                 | [] -> acc
                 | (c :: cv) ->
                     let cox_deboor = cox_deboor knots u k d in
-                    let acc = zip_with
-                        (fun x y -> x +. y)
-                        acc
-                        (List.map (fun c -> cox_deboor *. c) c) in
+                    let acc =
+                        let iter = (List.map (fun c -> cox_deboor *. c) c) in
+                        zip_with (+.) acc iter in
                     loop (k + 1) acc cv in
             loop 0 (List.init dim (fun _ -> 0.0)) cv in
-    List.map sample u
+    List.map sample ul
 
 let main () =
     let cv = [ [ 50.0; 25.0;   0.0 ]
