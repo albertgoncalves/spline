@@ -3,10 +3,11 @@ let init_surface ~w ~h =
     let cr = Cairo.create surface in
     surface, cr
 
-let init_margins cr ~w ~h ~margin ~pad =
-    let pad_bound x = x *. (1.0 -. pad) in
-    Cairo.translate cr margin margin;
-    Cairo.scale cr (pad_bound w) (pad_bound h)
+let init_margins cr ~w ~h ~pad =
+    let slide x = x *. pad /. 2.0 in
+    let shrink x = x *. (1.0 -. pad) in
+    Cairo.translate cr (slide w) (slide h);
+    Cairo.scale cr (shrink w) (shrink h)
 
 let draw_rect cr ~x ~y ~w ~h ~r ~g ~b =
     Cairo.rectangle cr ~x:x ~y:y ~w:w ~h:h;
@@ -23,7 +24,7 @@ let () =
 
     let bound = float_of_int bound in
     draw_rect cr ~x:0.0 ~y:0.0 ~w:bound ~h:bound ~r:0.0 ~g:0.0 ~b:0.0;
-    init_margins cr ~w:bound ~h:bound ~margin:(bound /. 10.0) ~pad:0.2;
+    init_margins cr ~w:bound ~h:bound ~pad:0.15;
     List.iter
         (fun ((x, y, w, h), (r, g, b)) -> draw_rect cr x y w h r g b)
         [ ((0.0, 0.0, 1.0, 1.0), (1.0, 1.0, 1.0))
