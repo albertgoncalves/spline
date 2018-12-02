@@ -21,13 +21,16 @@ let draw_rect cr ~x ~y ~w ~h ~r ~g ~b =
     C.set_source_rgb cr r g b;
     C.fill cr
 
+let brush cr lw r g b =
+    C.set_line_width cr lw;
+    C.set_source_rgb cr r g b
+
 let lines cr ~pts ~lw ~r ~g ~b =
     let line = function
         | [x; y] -> C.line_to cr x y
         | _ -> () in
 
-    C.set_line_width cr lw;
-    C.set_source_rgb cr r g b;
+    brush cr lw r g b;
     L.iter (fun pt -> line pt) pts;
     C.stroke cr
 
@@ -38,8 +41,7 @@ let dots cr ~pts ~lw ~rad ~r ~g ~b =
             C.stroke cr
         | _ -> () in
 
-    C.set_line_width cr lw;
-    C.set_source_rgb cr r g b;
+    brush cr lw r g b;
     L.iter (fun pt -> dot pt) pts
 
 let rand_pts n min max =
