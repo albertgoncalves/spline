@@ -4,7 +4,7 @@ module L = List
 module R = Random
 
 let () =
-    let bound = 500 in
+    let bound = 350 in
     let surface, cr = D.init_surface bound bound in
 
     let bound = float_of_int bound in

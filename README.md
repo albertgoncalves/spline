@@ -1,9 +1,19 @@
 # Drawing with Camel
 
+![](src/spline.png)
+
 Needed things
 ---
   * [Nix](https://nixos.org/nix/)
 
+Quick start
+---
+```bash
+$ nix-shell
+$ main.sh
+```
+
+Otherwise
 ---
 To [compile](https://ocaml.org/learn/tutorials/compiling_ocaml_projects.html) with required packages and modules:
 ```
