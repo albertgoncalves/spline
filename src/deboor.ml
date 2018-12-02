@@ -44,13 +44,3 @@ let bspline cvs n d =
     let thresh = float_of_int @@ count - d in
     let sample u = if u = thresh then H.last [] cvs else loop u 0 zeros cvs in
     L.map sample us
-
-let main () =
-    let cvs = [ [ 50.0; 25.0;   0.0 ]
-              ; [ 59.0; 12.0; (-1.0)]
-              ; [ 50.0; 10.0;   1.0 ]
-              ; [ 57.0;  2.0;   2.0 ]
-              ; [ 40.0;  4.0; (-1.0)]
-              ; [ 40.0; 14.0;   0.0 ]
-              ] in
-    bspline cvs 10 3

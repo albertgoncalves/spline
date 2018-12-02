@@ -1,7 +1,7 @@
 module D = Drawing
-module S = Deboor
 module L = List
 module R = Random
+module S = Deboor
 
 let () =
     let bound = 350 in
