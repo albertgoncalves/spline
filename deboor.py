@@ -34,8 +34,6 @@ def coxDeBoor(knots, u, k, d):
 def bspline(cv, n=100, d=3, closed=False):
     # Create a range of u values
     count = len(cv)
-    knots = None
-    u     = None
     if not closed:
         u = np.arange(0, n, dtype="float") / (n - 1) * (count - d)
         knots = np.array( [0] * d
@@ -63,19 +61,20 @@ def bspline(cv, n=100, d=3, closed=False):
 
     return samples
 
+def init_cv():
+    return np.asarray([ [ 50.0, 25.0,  0.0]
+                      , [ 59.0, 12.0, -1.0]
+                      , [ 50.0, 10.0,  1.0]
+                      , [ 57.0,  2.0,  2.0]
+                      , [ 40.0,  4.0, -1.0]
+                      , [ 40.0, 14.0,  0.0]
+                      ])
+
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
     def test(closed):
-        cv = np.asarray([ [ 50.0, 25.0,  0.0]
-                        , [ 59.0, 12.0, -1.0]
-                        , [ 50.0, 10.0,  1.0]
-                        , [ 57.0,  2.0,  2.0]
-                        , [ 40.0,  4.0, -1.0]
-                        , [ 40.0, 14.0,  0.0]
-                        ])
-        print(cv)
-
+        cv      = init_cv()
         p       = bspline(cv, n=100, d=3, closed=closed)
         x, y, _ = p.T
         cv      = cv.T

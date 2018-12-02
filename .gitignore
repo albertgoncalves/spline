@@ -1,6 +1,6 @@
 *
 !.gitignore
-!deboor.py
+!deboor.*
 !shell.nix
 !hello_array.ml
 !.ocp-indent
