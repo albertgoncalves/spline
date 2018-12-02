@@ -12,7 +12,6 @@ with pkgs; mkShell {
                     python36Packages.pylint
                     fzf
                     tmux
-                    vim
                   ];
     shellHook = ''
         pylin() { pylint -s n $1; }
