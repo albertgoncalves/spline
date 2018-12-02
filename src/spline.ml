@@ -6,6 +6,7 @@ module S = Deboor
 let () =
     let bound = 350 in
     let surface, cr = D.init_surface bound bound in
+    D.antialias cr;
 
     let bound = float_of_int bound in
     D.draw_rect cr ~x:0.0 ~y:0.0 ~w:bound ~h:bound ~r:1.0 ~g:1.0 ~b:1.0;
