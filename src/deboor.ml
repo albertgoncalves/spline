@@ -2,10 +2,11 @@ module A = Array
 module L = List
 module H = Helpers
 
+let safe_div denom eq = if denom <> 0.0 then eq else 0.0
+
 let rec cox_deboor knots u k d =
     if d == 0 then if knots.(k) <= u && u < knots.(k + 1) then 1.0 else 0.0
     else
-        let safe_div denom eq = if denom > 0.0 then eq else 0.0 in
         let a =
             let denom = knots.(k + d) -. knots.(k) in
             let eq =
