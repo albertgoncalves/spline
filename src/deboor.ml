@@ -29,7 +29,7 @@ let bspline cvs n d =
                          ] in
     let rec loop u k accu = function
         | [] -> accu
-        | (cv :: cvs) ->
+        | (cv::cvs) ->
             let cox_deboor = cox_deboor knots u k d in
             let accu =
                 let iter = L.map (fun x -> cox_deboor *. x) cv in
