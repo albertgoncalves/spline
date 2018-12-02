@@ -12,3 +12,5 @@
 *.cmx
 *.o
 !src
+!ref
+!output

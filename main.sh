@@ -7,6 +7,6 @@ ocamlfind ocamlopt \
         ~/Projects/spline/src/drawing.ml \
         ~/Projects/spline/src/helpers.ml \
         ~/Projects/spline/src/deboor.ml \
-    -linkpkg spline.ml -o spline
-./spline
-open spline.png
+    -linkpkg $1.ml -o $1
+# ./$1
+open ~/Projects/spline/output/$1.png

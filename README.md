@@ -1,6 +1,6 @@
 # Drawing with Camel
 
-![](src/spline.png)
+![](output/spline.png)
 
 Needed things
 ---
@@ -10,7 +10,7 @@ Quick start
 ---
 ```bash
 $ nix-shell
-$ main.sh
+$ main.sh spline
 ```
 
 Otherwise
