@@ -21,11 +21,13 @@ $ ocamlfind ocamlopt -packages LIBRARY1,LIBRARY2 MODULE1.ml MODULE2.ml -linkpkg 
 ```
 
 ---
-To load modules into the REPL on the fly:
+To load these things into the REPL on the fly:
 ```bash
 $ ocamlc -c MODULE.ml
 ```
 ```utop
+utop # #use "topfind";;
+utop # #require "LIBRARY";;
 utop # #load "MODULE.cmo";;
 utop # #use "MAIN.ml";;
 ```
