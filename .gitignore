@@ -6,6 +6,7 @@
 !.ocp-indent
 !spline.*
 !deboor.*
+!helpers.*
 !demos/margin.*
 !demos/print_list.*
 *.cmi
