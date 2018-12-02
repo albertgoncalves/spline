@@ -1,6 +1,6 @@
 # Drawing with Camel
 
-![](output/spline.png)
+![](cover.png)
 
 Needed things
 ---
