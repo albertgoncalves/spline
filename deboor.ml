@@ -1,3 +1,6 @@
+module A = Array
+module L = List
+
 let rec last default = function
     | [] -> default
     | [x] -> x
@@ -26,29 +29,29 @@ let rec cox_deboor knots u k d =
         a +. b
 
 let bspline cvs n d =
-    let dim = List.length @@ List.hd cvs in
-    let count = List.length cvs in
-    let us =
-        let f x =
-            (float_of_int x /. (float_of_int n -. 1.0))
-            *. (float_of_int count -. float_of_int d) in
-        List.init n f in
-    let knots = Array.concat [ Array.make d 0.0
-                             ; Array.init (count - d + 1) float_of_int
-                             ; Array.make d @@ float_of_int @@ count - d
+    let dim = L.length @@ L.hd cvs in
+    let count = L.length cvs in
+    let knots = A.concat [ A.make d 0.0
+                             ; A.init (count - d + 1) float_of_int
+                             ; A.make d @@ float_of_int @@ count - d
                              ] in
     let rec loop u k accu = function
         | [] -> accu
         | (cv :: cvs) ->
             let cox_deboor = cox_deboor knots u k d in
             let accu =
-                let iter = List.map (fun x -> cox_deboor *. x) cv in
+                let iter = L.map (fun x -> cox_deboor *. x) cv in
                 zip_with (+.) accu iter in
             loop u (k + 1) accu cvs in
-    let zeros = List.init dim (fun _ -> 0.0) in
+    let us =
+        let f x =
+            (float_of_int x /. (float_of_int n -. 1.0))
+            *. (float_of_int count -. float_of_int d) in
+        L.init n f in
+    let zeros = L.init dim (fun _ -> 0.0) in
     let thresh = float_of_int @@ count - d in
     let sample u = if u = thresh then last [] cvs else loop u 0 zeros cvs in
-    List.map sample us
+    L.map sample us
 
 let main () =
     let cvs = [ [ 50.0; 25.0;   0.0 ]
