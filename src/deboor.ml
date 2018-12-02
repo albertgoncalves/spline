@@ -42,7 +42,7 @@ let bspline cvs n d =
         L.init n f in
     let zeros = L.init dim (fun _ -> 0.0) in
     let thresh = count - d in
+    let last_cvs = H.last [] cvs in
     let sample u =
-        if u = float_of_int thresh then H.last [] cvs
-        else loop u 0 zeros cvs in
+        if u = float_of_int thresh then last_cvs else loop u 0 zeros cvs in
     L.map sample us
