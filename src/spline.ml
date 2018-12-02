@@ -9,8 +9,8 @@ let () =
     D.antialias cr;
 
     let bound = float_of_int bound in
-    D.draw_rect cr ~x:0.0 ~y:0.0 ~w:bound ~h:bound ~r:1.0 ~g:1.0 ~b:1.0;
-    D.init_margins cr ~w:bound ~h:bound ~pad:0.15;
+    D.rect cr ~x:0.0 ~y:0.0 ~w:bound ~h:bound ~r:1.0 ~g:1.0 ~b:1.0;
+    D.margins cr ~w:bound ~h:bound ~pad:0.15;
 
     R.self_init ();
     let pts =

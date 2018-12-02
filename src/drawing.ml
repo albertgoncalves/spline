@@ -10,13 +10,13 @@ let init_surface ~w ~h =
 
 let antialias cr = C.set_antialias cr C.ANTIALIAS_SUBPIXEL
 
-let init_margins cr ~w ~h ~pad =
+let margins cr ~w ~h ~pad =
     let slide x = x *. pad /. 2.0 in
     let shrink x = x *. (1.0 -. pad) in
     C.translate cr (slide w) (slide h);
     C.scale cr (shrink w) (shrink h)
 
-let draw_rect cr ~x ~y ~w ~h ~r ~g ~b =
+let rect cr ~x ~y ~w ~h ~r ~g ~b =
     C.rectangle cr ~x:x ~y:y ~w:w ~h:h;
     C.set_source_rgb cr r g b;
     C.fill cr
