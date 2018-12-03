@@ -9,6 +9,7 @@
 !spline.*
 !deboor.*
 !helpers.*
+!generators.*
 *.cmi
 *.cmx
 *.o

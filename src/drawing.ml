@@ -44,10 +44,6 @@ let dots cr ~pts ~lw ~rad ~r ~g ~b =
     brush cr ~lw ~r ~g ~b;
     L.iter (fun pt -> dot pt) pts
 
-let rand_pts n min max =
-    let rand_pt () = min +. R.float (max -. min) in
-    L.init n (fun _ -> [rand_pt (); rand_pt ()])
-
 let export surface filename =
     C.PNG.write surface filename;
     C.Surface.finish surface

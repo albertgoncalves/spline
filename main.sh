@@ -3,10 +3,7 @@
 cd src
 
 ocamlfind ocamlopt \
-    -package cairo2 \
-        ~/Projects/spline/src/drawing.ml \
-        ~/Projects/spline/src/helpers.ml \
-        ~/Projects/spline/src/deboor.ml \
+    -package cairo2 generators.ml helpers.ml drawing.ml deboor.ml \
     -linkpkg $1.ml -o $1
 ./$1
-open ~/Projects/spline/output/$1.png
+open ../output/$1.png

@@ -1,4 +1,4 @@
-# Drawing with Camel
+# Drawing with the Caml
 
 ![](cover.png)
 
