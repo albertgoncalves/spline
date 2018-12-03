@@ -1,6 +1,6 @@
 module R = Random
 
-let rand_pts n l ~x_min ~x_max ~y_min ~y_max =
+let char_pts n l ~x_min ~x_max ~y_min ~y_max =
     assert (n > 0);
     let rand_x () = x_min +. R.float (x_max -. x_min) in
     let rand_y () = y_min +. R.float (y_max -. y_min) in
@@ -10,14 +10,14 @@ let rand_pts n l ~x_min ~x_max ~y_min ~y_max =
         else l in
     loop n l
 
-let word_pts n =
+let word_pts n ~word_start ~word_sep ~char_range ~y_min ~y_max =
     assert (n > 0);
     let rec loop accu n =
         if n > 0 then
             let m = 4 + R.int 5 in
-            let x_max = float_of_int n in
-            let x_min = x_max -. 1.0 in
-            let pts = rand_pts m accu ~x_min ~x_max ~y_min:0.0 ~y_max:1.0 in
+            let x_max = word_start +. (float_of_int n *. word_sep) in
+            let x_min = x_max -. char_range in
+            let pts = char_pts m accu ~x_min ~x_max ~y_min ~y_max in
             loop pts (n - 1)
         else accu in
     loop [] n

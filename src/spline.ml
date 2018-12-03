@@ -17,7 +17,7 @@ let () =
     let pts =
         let n = 4 + R.int 5 in
         assert (n > 3);
-        G.rand_pts n [] ~x_min:0.0 ~x_max:1.0 ~y_min:0.0 ~y_max:1.0 in
+        G.char_pts n [] ~x_min:0.0 ~x_max:1.0 ~y_min:0.0 ~y_max:1.0 in
     let r = 0.0 and g = 0.0 and b = 0.0 in
     let spline = S.bspline pts 100 3 in
 

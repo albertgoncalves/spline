@@ -10,6 +10,7 @@
 !deboor.*
 !helpers.*
 !generators.*
+!word.*
 *.cmo
 *.cmi
 *.cmx
