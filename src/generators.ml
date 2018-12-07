@@ -25,7 +25,7 @@ let word_pts ~n ~word_start ~word_sep ~char_range ~y_min ~y_max =
             else accu in
         loop n []
 
-let sentence_pts ~ns ~sentence_start ~word_sep ~char_range ~y_min ~y_max =
+let sent_pts ~ns ~sentence_start ~word_sep ~char_range ~y_min ~y_max =
     let rec loop start accu = function
         | (n::ns) ->
             let next_start = start +. float_of_int n in

@@ -17,4 +17,4 @@
 *.o
 !src
 !ref
-!output
+!out

@@ -25,4 +25,4 @@ let () =
     D.lines cr ~pts ~lw:0.001 ~r ~g ~b;
     D.lines cr ~pts:spline ~lw:0.005 ~r ~g ~b;
 
-    D.export surface "../output/spline.png"
+    D.export surface "../out/spline.png"
