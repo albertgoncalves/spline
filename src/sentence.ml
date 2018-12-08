@@ -17,7 +17,7 @@ let () =
 
     let pad = 0.25 in
     let k = float_of_int @@ H.sum_int ns in
-    let j = 1.0 +. (k -. (k *. pad)) in
+    let j = 1.0 +. (pad /. 2.0) +. (k -. (k *. pad)) in
     let res = 200 * (int_of_float k + 1) in
     let y_bound = 350 in
     let x_bound = int_of_float @@ ceil @@ float_of_int y_bound *. j in
