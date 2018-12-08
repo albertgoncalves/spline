@@ -6,10 +6,12 @@ module S = Deboor
 
 let () =
     R.self_init ();
+
     let k = 3 + R.int 2 in
     let res = 200 * (k + 1) in
     let y_bound = 350 in
     let x_bound = y_bound * k in
+
     let surface, cr = D.init_surface x_bound y_bound in
     D.antialias cr;
 

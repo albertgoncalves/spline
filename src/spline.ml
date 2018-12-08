@@ -5,6 +5,8 @@ module R = Random
 module S = Deboor
 
 let () =
+    R.self_init ();
+
     let bound = 350 in
     let surface, cr = D.init_surface bound bound in
     D.antialias cr;
@@ -13,7 +15,6 @@ let () =
     D.rect cr ~x:0.0 ~y:0.0 ~w:bound ~h:bound ~r:1.0 ~g:1.0 ~b:1.0;
     D.margins cr ~w:bound ~h:bound ~pad:0.15;
 
-    R.self_init ();
     let pts =
         let n = 4 + R.int 5 in
         assert (n > 3);
