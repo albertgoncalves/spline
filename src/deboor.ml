@@ -1,6 +1,6 @@
 module A = Array
-module L = List
 module H = Helpers
+module L = List
 
 let rec cox_deboor knots u k d =
     if d == 0 then if knots.(k) <= u && u < knots.(k + 1) then 1.0 else 0.0
