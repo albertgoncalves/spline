@@ -9,7 +9,7 @@ with pkgs; mkShell {
                     python36
                     python36Packages.matplotlib
                     python36Packages.numpy
-                    python36Packages.pylint
+                    python36Packages.flake8
                     fzf
                     tmux
                   ];
@@ -25,6 +25,7 @@ with pkgs; mkShell {
         }
         alias  cdfzf="withfzf strcd"
         alias vimfzf="withfzf vim"
+        alias flake8="flake8 --ignore E124,E128,E201,E203,E241,W503"
         export -f pylin
         export -f withfzf
     '';

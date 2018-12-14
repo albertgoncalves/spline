@@ -5,6 +5,7 @@
 
 import numpy as np
 
+
 def cox_deboor(knots, u, k, d):
     if d == 0:
         if (knots[k] <= u) & (u < knots[k + 1]):
@@ -26,6 +27,7 @@ def cox_deboor(knots, u, k, d):
 
         return a + b
 
+
 def bspline(cv, n=100, d=3, closed=False):
     # cv = np.array of 3d control vertices
     # n = number of samples (default: 100)
@@ -34,9 +36,9 @@ def bspline(cv, n=100, d=3, closed=False):
     count = len(cv)
     if not closed:
         u = np.arange(0, n, dtype="float") / (n - 1) * (count - d)
-        knots = np.array( [0] * d
-                        + list(range(count - d + 1))
-                        + [count - d] * d, dtype="int"
+        r = list(range(count - d + 1))
+        knots = np.array( [0] * d + r + [count - d] * d
+                        , dtype="int"
                         )
     else:
         u = ( (np.arange(0, n, dtype="float") / (n - 1) * count)
@@ -58,6 +60,7 @@ def bspline(cv, n=100, d=3, closed=False):
 
     return samples
 
+
 def init_cv():
     return np.asarray([ [ 50.0, 25.0,  0.0]
                       , [ 59.0, 12.0, -1.0]
@@ -66,6 +69,7 @@ def init_cv():
                       , [ 40.0,  4.0, -1.0]
                       , [ 40.0, 14.0,  0.0]
                       ])
+
 
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
