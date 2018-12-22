@@ -10,9 +10,7 @@ Quick start
 ---
 ```bash
 $ nix-shell
-$ sh main.sh spline
-$ sh main.sh word
-$ sh main.sh sentence
+$ sh main.sh {spline|word|sentence}
 ```
 
 Otherwise
