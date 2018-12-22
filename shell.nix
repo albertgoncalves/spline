@@ -22,9 +22,11 @@ with pkgs; mkShell {
                 $1 "$h"
             fi
         }
+
         alias cdfzf="withfzf strcd"
         alias vimfzf="withfzf vim"
         alias flake8="flake8 --ignore E124,E128,E201,E203,E241,W503"
+
         export -f withfzf
     '';
 }
