@@ -17,7 +17,7 @@ Otherwise
 ---
 To [compile](https://ocaml.org/learn/tutorials/compiling_ocaml_projects.html) with required packages and modules:
 ```
-$ ocamlfind ocamlopt -packages LIBRARY1,LIBRARY2 MODULE1.ml MODULE2.ml -linkpkg MAIN.ml -o MAIN
+$ ocamlfind ocamlopt -package LIBRARY1,LIBRARY2 MODULE1.ml MODULE2.ml -linkpkg MAIN.ml -o MAIN
 ```
 
 ---
