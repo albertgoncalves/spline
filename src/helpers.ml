@@ -1,3 +1,5 @@
+module L = List
+
 let rec last default = function
     | [] -> default
     | [x] -> x
@@ -8,5 +10,5 @@ let rec zip_with f xs ys = match xs, ys with
     | [], _ | _, [] -> []
 
 let sum_int = function
-    | (x::xs) -> List.fold_left (+) x xs
+    | (x::xs) -> L.fold_left (+) x xs
     | [] -> 0

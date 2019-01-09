@@ -12,7 +12,7 @@ let () =
     R.self_init ();
 
     let n = 2 + R.int 3 in
-    let ns = List.init n (fun _ -> 3 + R.int 5) in
+    let ns = L.init n (fun _ -> 3 + R.int 5) in
     let words =
         G.sent_pts ~ns
             ~sent_start:0.25 ~word_sep:0.05 ~char_sep:1.0 ~char_range:1.0
@@ -33,10 +33,10 @@ let () =
 
     D.margins cr ~w:y_bound ~h:y_bound ~pad;
 
-    let splines = List.map (fun word -> S.bspline word res 3) words in
+    let splines = L.map (fun word -> S.bspline word res 3) words in
 
     let r = 0.0 and g = 0.0 and b = 0.0 in
-    List.iter
+    L.iter
         (fun spline -> D.lines cr ~pts:spline ~lw:0.005 ~r ~g ~b) splines;
 
     D.export surface "../out/sentence.png"

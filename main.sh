@@ -10,4 +10,11 @@ ocamlfind ocamlopt \
     -package cairo2 generators.ml helpers.ml drawing.ml deboor.ml \
     -linkpkg $1.ml -o $1
 ./$1
-display ../out/$1.png
+
+output=../out/$1.png
+
+if [ $(uname -s) = "Darwin" ]; then
+    open $output
+else
+    display $output
+fi
