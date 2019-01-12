@@ -31,7 +31,8 @@ let bspline cvs n d =
         | (cv::cvs) ->
             let cox_deboor = cox_deboor knots u k d in
             let accu =
-                let iter = L.map (fun x -> cox_deboor *. x) cv in
+                let lambda x = cox_deboor *. x in
+                let iter = L.map lambda cv in
                 H.zip_with (+.) accu iter in
             loop u (k + 1) accu cvs in
     let us =

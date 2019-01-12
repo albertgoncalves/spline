@@ -31,7 +31,7 @@ let lines cr ~pts ~lw ~r ~g ~b =
         | _ -> () in
 
     brush cr ~lw ~r ~g ~b;
-    L.iter (fun pt -> line pt) pts;
+    L.iter line pts;
     C.stroke cr
 
 let dots cr ~pts ~lw ~rad ~r ~g ~b =
@@ -42,7 +42,7 @@ let dots cr ~pts ~lw ~rad ~r ~g ~b =
         | _ -> () in
 
     brush cr ~lw ~r ~g ~b;
-    L.iter (fun pt -> dot pt) pts
+    L.iter dot pts
 
 let export surface filename =
     C.PNG.write surface filename;

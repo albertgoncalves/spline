@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 cd src
 
 for f in generators helpers drawing deboor; do
