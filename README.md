@@ -10,20 +10,20 @@ Quick start
 ---
 ```bash
 $ nix-shell
-$ sh main.sh {spline|word|sentence}
+[nix-shell:~/spline]$ sh main.sh {spline|word|sentence}
 ```
 
 Otherwise
 ---
 To [compile](https://ocaml.org/learn/tutorials/compiling_ocaml_projects.html) with required packages and modules:
 ```
-$ ocamlfind ocamlopt -package LIBRARY1,LIBRARY2 MODULE1.ml MODULE2.ml -linkpkg MAIN.ml -o MAIN
+[nix-shell:~/spline]$ ocamlfind ocamlopt -package LIBRARY1,LIBRARY2 MODULE1.ml MODULE2.ml -linkpkg MAIN.ml -o MAIN
 ```
 
 ---
 To load these things into the REPL on the fly:
 ```bash
-$ ocamlc -c MODULE.ml
+[nix-shell:~/spline]$ ocamlc -c MODULE.ml
 ```
 ```utop
 utop # #use "topfind";;
