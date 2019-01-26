@@ -14,6 +14,11 @@ with pkgs; mkShell {
                     tmux
                   ];
     shellHook = ''
+        if [ $(uname -s) = "Darwin" ]; then
+            alias ls='ls --color=auto'
+            alias ll='ls -al'
+        fi
+
         strcd() { cd "$(dirname $1)"; }
         withfzf() {
             local h
