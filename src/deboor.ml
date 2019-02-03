@@ -3,29 +3,37 @@ module H = Helpers
 module L = List
 
 let rec cox_deboor knots u k d =
-    if d == 0 then if knots.(k) <= u && u < knots.(k + 1) then 1.0 else 0.0
+    if d == 0 then
+        if knots.(k) <= u && u < knots.(k + 1) then
+            1.0
+        else
+            0.0
     else
         let a =
             let den = knots.(k) -. knots.(k + d) in
             if den <> 0.0 then
                 let num = knots.(k) -. u in
                 (cox_deboor knots u k (d - 1)) *. (num /. den)
-            else 0.0 in
+            else
+                0.0 in
         let b =
             let den = knots.(k + d + 1) -. knots.(k + 1) in
             if den <> 0.0 then
                 let num = knots.(k + d + 1) -. u in
                 (cox_deboor knots u (k + 1) (d - 1)) *. (num /. den)
-            else 0.0 in
+            else
+                0.0 in
         a +. b
 
 let bspline cvs n d =
     let dim = L.length @@ L.hd cvs in
     let count = L.length cvs in
-    let knots = A.concat [ A.make d 0.0
-                         ; A.init (count - d + 1) float_of_int
-                         ; A.make d @@ float_of_int @@ count - d
-                         ] in
+    let knots =
+        A.concat
+            [ A.make d 0.0
+            ; A.init (count - d + 1) float_of_int
+            ; A.make d @@ float_of_int @@ count - d
+            ] in
     let rec loop u k accu = function
         | [] -> accu
         | (cv::cvs) ->

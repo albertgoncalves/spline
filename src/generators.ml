@@ -6,7 +6,8 @@ let char_pts accu ~n ~x_min ~x_max ~y_min ~y_max =
     let rec loop n accu =
         if n > 0 then
             loop (n - 1) ([rand_x (); rand_y ()]::accu)
-        else accu in
+        else
+            accu in
     loop n accu
 
 let word_pts ~n ~word_start ~char_sep ~char_range ~y_min ~y_max =
@@ -17,7 +18,8 @@ let word_pts ~n ~word_start ~char_sep ~char_range ~y_min ~y_max =
             let x_min = x_max -. char_range in
             let pts = char_pts accu ~n:m ~x_min ~x_max ~y_min ~y_max in
             loop (n - 1) pts
-        else accu in
+        else
+            accu in
     loop n []
 
 let sent_pts ~ns ~sent_start ~word_sep ~char_sep ~char_range ~y_min ~y_max =
