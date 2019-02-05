@@ -18,5 +18,5 @@ output=../out/$1.png
 if [ $(uname -s) = "Darwin" ]; then
     open $output
 else
-    display $output
+    xdg-open $output
 fi
