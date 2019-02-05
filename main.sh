@@ -5,7 +5,7 @@ set -e
 cd src
 
 for f in generators helpers drawing deboor; do
-    ocamlfind ocamlc -c $f.ml -package cairo2
+    ocamlfind ocamlopt -c $f.ml -package cairo2
 done
 
 ocamlfind ocamlopt \
