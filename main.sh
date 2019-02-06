@@ -6,7 +6,8 @@ cd src
 
 ocamlfind ocamlopt \
     -package cairo2 \
-    -linkpkg generators.ml helpers.ml drawing.ml deboor.ml $1.ml -o $1
+    -linkpkg generators.ml helpers.ml drawing.ml deboor.ml $1.ml \
+    -o $1
 ./$1
 
 output=../out/$1.png
