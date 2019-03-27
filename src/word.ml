@@ -20,9 +20,14 @@ let () =
     D.margins cr ~w:y_bound ~h:y_bound ~pad:0.4;
 
     let pts =
-        G.word_pts ~n:(k + 1)
-            ~word_start:0.25 ~char_sep:1.0 ~char_range:1.0
-            ~y_min:0.0 ~y_max:1.0 in
+        G.word_pts
+            ~n:(k + 1)
+            ~word_start:0.25
+            ~char_sep:1.0
+            ~char_range:1.0
+            ~y_min:0.0
+            ~y_max:1.0 in
+
     let r = 0.0 and g = 0.0 and b = 0.0 in
     let spline = S.bspline pts res 3 in
 
