@@ -2,7 +2,8 @@ module A = Array
 module H = Helpers
 module L = List
 
-let rec cox_deboor knots u k d =
+let rec cox_deboor (knots : float array) (u : float) (k : int) (d : int)
+    : float =
     if d == 0 then
         if knots.(k) <= u && u < knots.(k + 1) then
             1.0
@@ -12,8 +13,7 @@ let rec cox_deboor knots u k d =
         let a =
             let den = knots.(k) -. knots.(k + d) in
             if den <> 0.0 then
-                let num = knots.(k) -. u in
-                (cox_deboor knots u k (d - 1)) *. (num /. den)
+                (cox_deboor knots u k (d - 1)) *. ((knots.(k) -. u) /. den)
             else
                 0.0 in
         let b =
@@ -25,32 +25,27 @@ let rec cox_deboor knots u k d =
                 0.0 in
         a +. b
 
-let bspline cvs n d =
-    let dim = L.length @@ L.hd cvs in
-    let count = L.length cvs in
-    let knots =
+let bspline (cvs : float list list) (n : int) (d : int) : float list list =
+    let count : int = L.length cvs in
+    let knots : float array =
         A.concat
             [ A.make d 0.0
             ; A.init (count - d + 1) float_of_int
-            ; A.make d @@ float_of_int @@ count - d
+            ; count - d |> float_of_int |> A.make d
             ] in
-    let rec loop u k accu = function
+    let rec loop (u : float) (k : int) (accu : float list) = function
         | [] -> accu
         | (cv::cvs) ->
-            let cox_deboor = cox_deboor knots u k d in
-            let accu =
-                let lambda x = cox_deboor *. x in
-                let iter = L.map lambda cv in
-                H.zip_with (+.) accu iter in
-            loop u (k + 1) accu cvs in
-    let us =
+            let xs = (L.map (( *.) (cox_deboor knots u k d)) cv) in
+            loop u (k + 1) (H.zip_with (+.) accu xs) cvs in
+    let us : float list =
         let f x =
             (float_of_int x /. (float_of_int n -. 1.0))
             *. (float_of_int count -. float_of_int d) in
         L.init n f in
-    let zeros = L.init dim (fun _ -> 0.0) in
-    let thresh = count - d in
-    let last_cvs = H.last [] cvs in
-    let sample u =
-        if u = float_of_int thresh then last_cvs else loop u 0 zeros cvs in
+    let sample (u : float) : float list =
+        if u = float_of_int (count - d) then
+            H.last [] cvs
+        else
+            loop u 0 (L.init (H.head [] cvs |> L.length) (fun _ -> 0.0)) cvs in
     L.map sample us

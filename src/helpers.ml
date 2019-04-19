@@ -1,5 +1,9 @@
 module L = List
 
+let head (default : 'a) : ('a list -> 'a) = function
+    | (x::_) -> x
+    | _ -> default
+
 let rec last default = function
     | [] -> default
     | [x] -> x
